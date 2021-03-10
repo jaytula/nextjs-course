@@ -7,6 +7,19 @@ const ClientsProjectsPage = () => {
   return (
     <div>
       <h1>ClientsProjectsPage: {id}</h1>
+      <button
+        onClick={() => {
+          router.push({
+            pathname: '/clients/[id]/[clientprojectid]',
+            query: {
+              id: id,
+              clientprojectid: 'projecta'
+            }
+          });
+        }}
+      >
+        Load Project A
+      </button>
     </div>
   );
 };
