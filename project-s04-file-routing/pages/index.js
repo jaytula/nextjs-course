@@ -1,7 +1,8 @@
 export default function Home() {
   return (
     <div>
-      <h1>Hello Next App!</h1>
+      <h1>Starting Page</h1>
+      <p>TODO: (show featured Events)</p>
     </div>
   )
 }
