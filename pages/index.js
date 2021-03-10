@@ -9,7 +9,7 @@ function HomePage() {
           <Link href="/portfolio">Portfolio</Link>
         </li>
         <li>
-          <Link replace href="/clients">Clients List</Link>
+          <Link href="/clients">Clients List</Link>
         </li>
         <li>
           <Link href="/about">About</Link>
