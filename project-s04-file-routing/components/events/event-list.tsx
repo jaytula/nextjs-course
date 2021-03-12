@@ -5,7 +5,7 @@ const EventList: React.FC<{ items: Event[] }> = ({ items }) => {
   return (
     <ul>
       {items.map((item) => (
-        <EventItem item={item} />
+        <EventItem key={item.id} item={item} />
       ))}
     </ul>
   );
