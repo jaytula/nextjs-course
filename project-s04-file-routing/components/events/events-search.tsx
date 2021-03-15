@@ -1,23 +1,35 @@
-import Button from "../ui/button"
-import classes from './events-search.module.css'
+import { SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG } from "node:constants";
+import { useRef } from "react";
+import Button from "../ui/button";
+import classes from "./events-search.module.css";
 
-const EventsSearch = () => {
-  const findEventsHandler = () => {
+const EventsSearch: React.FC<{
+  onSearch: (year: string, month: string) => void;
+}> = ({ onSearch }) => {
+  const yearInputRef = useRef<HTMLSelectElement>();
+  const monthInputRef = useRef<HTMLSelectElement>();
+  const submitHandler = (event: React.FormEvent) => {
+    event.preventDefault();
 
-  }
+    const selectedYear = yearInputRef.current.value;
+    const selectedMonth = monthInputRef.current.value;
+
+    onSearch(selectedYear, selectedMonth);
+  };
+
   return (
-    <form className={classes.form}>
+    <form className={classes.form} onSubmit={submitHandler}>
       <div className={classes.controls}>
         <div className={classes.control}>
           <label htmlFor="year">Year</label>
-          <select id="year">
+          <select id="year" ref={yearInputRef}>
             <option value="2021">2021</option>
             <option value="2022">2022</option>
           </select>
         </div>
         <div className={classes.control}>
           <label htmlFor="month">Month</label>
-          <select id="month">
+          <select id="month" ref={monthInputRef}>
             <option value="1">January</option>
             <option value="2">February</option>
 
@@ -34,9 +46,9 @@ const EventsSearch = () => {
           </select>
         </div>
       </div>
-      <Button onClick={findEventsHandler}>Find Events</Button>
+      <Button>Find Events</Button>
     </form>
   );
 };
 
-export default EventsSearch
+export default EventsSearch;
