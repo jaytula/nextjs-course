@@ -5,9 +5,9 @@ import { Fragment } from "react";
 const ProductDetailPage: React.FC<{
   product: { id: string; title: string; description: string };
 }> = ({ product }) => {
-  // if(!product) {
-  //   return <p>Loading...</p>
-  // }
+  if (!product) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <Fragment>
@@ -31,6 +31,10 @@ export const getStaticProps = async (context) => {
   const data = await getData();
 
   const product = data.products.find((product) => product.id === productId);
+
+  if (!product) {
+    return { notFound: true };
+  }
   return {
     props: {
       product,
@@ -44,7 +48,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths: data.products.map((product) => ({ params: { pid: product.id } })),
-    fallback: false,
+    fallback: true,
     // fallback: "blocking",
   };
 };
