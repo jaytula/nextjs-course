@@ -5,6 +5,11 @@ import { Fragment } from "react";
 const ProductDetailPage: React.FC<{
   product: { id: string; title: string; description: string };
 }> = ({ product }) => {
+
+  // if(!product) {
+  //   return <p>Loading...</p>
+  // }
+
   return (
     <Fragment>
       <h1>{product.title}</h1>
@@ -33,10 +38,9 @@ export const getStaticPaths = async () => {
   return {
     paths: [
       { params: { pid: 'p1'}},
-      { params: { pid: 'p2'}},
-      { params: { pid: 'p3'}},
     ],
-    fallback: false
+    // fallback: true,
+    fallback: 'blocking'
   }
 }
 
