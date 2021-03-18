@@ -1,6 +1,9 @@
 import path from 'path';
-import fs from 'fs/promises';
+import fs from 'fs';
+import util from 'util';
 import Link from 'next/link'
+
+const readFile = util.promisify(fs.readFile)
 
 function HomePage(props) {
   const { products } = props
@@ -16,7 +19,7 @@ function HomePage(props) {
 export async function getStaticProps(context) {
   console.log('(Re-)Generating');
   const filePath = path.join(process.cwd(), 'data', 'dummy-backend.json');
-  const jsonData = await fs.readFile(filePath);
+  const jsonData = await readFile(filePath);
   const data = JSON.parse(jsonData);
 
 
