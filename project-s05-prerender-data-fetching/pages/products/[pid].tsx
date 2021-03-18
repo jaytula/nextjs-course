@@ -1,6 +1,9 @@
 import path from "path";
-import fs from "fs/promises";
+import fs from "fs";
+import util from 'util';
 import { Fragment } from "react";
+
+const readFile = util.promisify(fs.readFile);
 
 const ProductDetailPage: React.FC<{
   product: { id: string; title: string; description: string };
@@ -19,7 +22,7 @@ const ProductDetailPage: React.FC<{
 
 const getData = async () => {
   const filePath = path.join(process.cwd(), "data", "dummy-backend.json");
-  const jsonData = await fs.readFile(filePath);
+  const jsonData = await readFile(filePath);
   const data = JSON.parse(jsonData.toString());
   return data;
 };

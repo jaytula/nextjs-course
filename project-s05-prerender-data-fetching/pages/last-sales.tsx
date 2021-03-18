@@ -1,3 +1,4 @@
+import { GetStaticProps } from "next";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 
@@ -11,11 +12,13 @@ interface Sale {
   volume: number;
 }
 const FIREBASE_BACKEND = process.env.NEXT_PUBLIC_FIREBASE_BACKEND;
-const LastSalesPage = () => {
-  const [sales, setSales] = useState<Sale[] | undefined>();
+const LastSalesPage: React.FC<{sales: Sale[]}> = ({sales: initialSales}) => {
+  const [sales, setSales] = useState<Sale[] | undefined>(initialSales);
   // const [isLoading, setIsLoading] = useState(false);
 
-  const { data, error } = useSWR<Sale[] | undefined>(`${FIREBASE_BACKEND}sales.json`);
+  const { data, error } = useSWR<Sale[] | undefined>(
+    `${FIREBASE_BACKEND}sales.json`
+  );
 
   useEffect(() => {
     if (data) {
@@ -32,7 +35,7 @@ const LastSalesPage = () => {
   if (error) {
     return <p>Failed to load.</p>;
   }
-  if (!data || !sales) {
+  if (!data && !sales) {
     return <p>Loading...</p>;
   }
 
@@ -58,7 +61,6 @@ const LastSalesPage = () => {
   //   return <p>No data yet...</p>
   // }
 
-  console.log({ FIREBASE_BACKEND });
   return (
     <ul>
       {sales.map((sale) => {
@@ -70,6 +72,25 @@ const LastSalesPage = () => {
       })}
     </ul>
   );
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  return fetch(`${FIREBASE_BACKEND}sales.json`)
+    .then((res) => res.json())
+    .then((data: Data) => {
+      const transformedData = Object.entries(data).map(([key, value]) => ({
+        id: key,
+        username: value.username,
+        volume: value.volume,
+      }));
+      return {
+        props: {
+          sales: transformedData
+        },
+        // revalidate: 10
+      };
+    });
+
 };
 
 export default LastSalesPage;
