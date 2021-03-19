@@ -5,14 +5,14 @@ import EventLogistics from '../../components/event-detail/event-logistics';
 import EventContent from '../../components/event-detail/event-content';
 import ErrorAlert from '../../components/ui/error-alert';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { Event, getAllEvents, getEventById } from '../../helpers/api-util';
+import { Event, getEventById, getFeaturedEvents } from '../../helpers/api-util';
 
 const EventDetailPage: React.FC<{event: Event}> = ({event}) => {
   if (!event) {
     return (
-      <ErrorAlert>
-        <p>No event found!</p>
-      </ErrorAlert>
+      <div className="center">
+        <p>Loading...</p>
+      </div>
     );
   }
 
@@ -39,16 +39,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       event
-    }
+    },
+    revalidate: 30
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allEvents = await getAllEvents();
+  const allEvents = await getFeaturedEvents();
 
   return {
     paths: allEvents.map(event => ({params: {eventId: event.id}})),
-    fallback: false
+    fallback: 'blocking'
   }
 }
 
