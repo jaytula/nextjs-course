@@ -26,6 +26,15 @@
       "date": "2022-04-10",
       "image": "images/extrovert-event.jpg",
       "isFeatured": true
+    },
+    "e4": {
+      "id": "e4",
+      "title": "Networking for aliens",
+      "description": "Mu mu mu.",
+      "location": "My Street 1244, 10115 Bank City",
+      "date": "2022-04-15",
+      "image": "images/extrovert-event.jpg",
+      "isFeatured": true
     }
   }
 }
