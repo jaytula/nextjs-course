@@ -21,10 +21,29 @@ export const getAllEvents: () => Promise<Event[]> = async () => {
 
 export const getFeaturedEvents: () => Promise<Event[]> = async () => {
   const allEvents = await getAllEvents();
-  return allEvents.filter(event => event.isFeatured);
-}
+  return allEvents.filter((event) => event.isFeatured);
+};
 
-export const getEventById: (eventId: string) => Promise<Event | undefined> = async (eventId) => {
+export const getEventById: (
+  eventId: string
+) => Promise<Event | undefined> = async (eventId) => {
   const allEvents = await getAllEvents();
-  return allEvents.find(event => event.id === eventId);
-}
+  return allEvents.find((event) => event.id === eventId);
+};
+
+export const getFilteredEvents: (dateFilter: {
+  year: number;
+  month: number;
+}) => Promise<Event[]> = async (dateFilter) => {
+  const allEvents = await getAllEvents();
+  const { year, month } = dateFilter;
+
+  let filteredEvents = allEvents.filter((event) => {
+    const eventDate = new Date(event.date);
+    return (
+      eventDate.getFullYear() === year && eventDate.getMonth() === month - 1
+    );
+  });
+
+  return filteredEvents;
+};
