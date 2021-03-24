@@ -2,7 +2,7 @@ import { NextApiHandler } from "next";
 import fs from 'fs';
 import path from 'path';
 import util from 'util';
-import { Feedback } from "../../models/Feedback";
+import { Feedback } from "../../../models/Feedback";
 
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
