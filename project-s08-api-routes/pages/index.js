@@ -17,7 +17,12 @@ function HomePage() {
         email: enteredEmail,
         text: enteredFeedback,
       }),
-    });
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+    })
+    
   };
   return (
     <div>
