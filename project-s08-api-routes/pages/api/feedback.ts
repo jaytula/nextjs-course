@@ -7,11 +7,11 @@ import { Feedback } from "../../models/Feedback";
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
-const buildFeedbackPath = () => {
+export const buildFeedbackPath = () => {
   return path.join(process.cwd(), 'data', 'feedback.json');
 }
 
-const extractFeedback = async (filePath) => {
+export const extractFeedback = async (filePath) => {
   const fileContents = await readFile(filePath);
   return fileContents.toString() ? (JSON.parse(fileContents.toString()) as Feedback[]) : [] as Feedback[];
 }
