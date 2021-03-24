@@ -2,9 +2,19 @@ import { NextApiHandler } from "next";
 import fs from 'fs';
 import path from 'path';
 import util from 'util';
+import { Feedback } from "../../models/Feedback";
 
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
+
+const buildFeedbackPath = () => {
+  return path.join(process.cwd(), 'data', 'feedback.json');
+}
+
+const extractFeedback = async (filePath) => {
+  const fileContents = await readFile(filePath);
+  return fileContents.toString() ? (JSON.parse(fileContents.toString()) as Feedback[]) : [] as Feedback[];
+}
 
 const handler: NextApiHandler = async (req, res) => {
   if(req.method === 'POST') {
@@ -17,14 +27,14 @@ const handler: NextApiHandler = async (req, res) => {
     }
 
     // store that in a database or in a file
-    const FEEDBACK_FILE = path.join(process.cwd(), 'data', 'feedback.json')
-    const fileContents = await readFile(FEEDBACK_FILE);
-    const feedbacks = fileContents.toString() ? JSON.parse(fileContents.toString()) : [];
+    const feedbacks = await extractFeedback(buildFeedbackPath())
     feedbacks.push(newFeedback);
-    await writeFile(FEEDBACK_FILE, JSON.stringify(feedbacks, null, 2))
+    await writeFile(buildFeedbackPath(), JSON.stringify(feedbacks, null, 2))
     res.status(201).json({message: 'Success!', feedback: newFeedback})
   } else {
-    res.status(200).json({ message: "This works!" });
+    const feedbacks = await extractFeedback(buildFeedbackPath())
+    
+    res.status(200).json({ message: "This works!", feedbacks });
   }
 };
 
