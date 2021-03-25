@@ -1,0 +1,1 @@
+export const FIREBASE_BACKEND = process.env.NEXT_PUBLIC_FIREBASE_BACKEND as string
