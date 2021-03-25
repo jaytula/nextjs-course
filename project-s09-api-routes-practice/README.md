@@ -32,3 +32,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Lesson Notes
+
+# Lesson 149.
+
+Changes include:
+
+- New `input` folder under `components`
+- `Comments` component used in `pages/events/[eventId]`
+- In `HomePage` component, `NewsletterRegistration` was added.
+- Click on a single event to see `Show Comments` button
+
+Challenges:
+
+- Add API route that handles Newsletter signup on `HomePage`
+- Add API route that allows users to submit comment. Should be a dynamic route.
+- Fetch comments for API route
