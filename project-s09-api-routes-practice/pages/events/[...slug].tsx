@@ -9,9 +9,10 @@ import ResultsTitle from '../../components/events/results-title';
 import Button from '../../components/ui/button';
 import ErrorAlert from '../../components/ui/error-alert';
 import { FIREBASE_BACKEND } from '../../constants';
+import { EventItem } from '../../models';
 
 function FilteredEventsPage(props) {
-  const [loadedEvents, setLoadedEvents] = useState();
+  const [loadedEvents, setLoadedEvents] = useState<EventItem[]>([]);
   const router = useRouter();
 
   const filterData = router.query.slug;
