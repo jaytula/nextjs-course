@@ -36,9 +36,7 @@ const handler: NextApiHandler = async (req, res) => {
       eventId,
     };
 
-    const result = await db.collection('comments').insertOne(
-      newComment
-    )
+    const result = await db.collection("comments").insertOne(newComment);
 
     newComment.id = result.insertedId;
 
@@ -49,13 +47,22 @@ const handler: NextApiHandler = async (req, res) => {
   }
 
   if (req.method === "GET") {
+    const results = await db
+      .collection("comments")
+      .find({
+        eventId,
+      })
+      .sort({ _id: -1 })
+      .toArray();
+
+    const comments = results.map((result) => ({ ...result, id: result._id }));
+
     res.status(200).json({
-      comments: [],
+      comments,
     });
   }
 
   client.close();
-
 };
 
 export default handler;
