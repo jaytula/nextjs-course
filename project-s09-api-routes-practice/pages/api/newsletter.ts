@@ -1,6 +1,7 @@
 import { NextApiHandler } from "next";
+import { MongoClient } from "mongodb";
 
-const handler: NextApiHandler = (req, res) => {
+const handler: NextApiHandler = async (req, res) => {
   if (req.method !== "POST") {
     res.status(405).end();
     return;
@@ -12,10 +13,21 @@ const handler: NextApiHandler = (req, res) => {
     res.status(422).json({ mesage: "Invalid email.address." });
     return;
   }
-  console.log( email );
+
+  const client = await MongoClient.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  const db = client.db();
+
+  await db.collection("emails").insertOne({
+    email,
+  });
+
+  client.close();
 
   res.status(201).json({
-    message: 'Signed up!',
+    message: "Signed up!",
     email,
   });
 };
