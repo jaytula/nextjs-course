@@ -20,7 +20,7 @@ const handler: NextApiHandler = async (req, res) => {
   });
   const db = client.db();
 
-  await db.collection("emails").insertOne({
+  await db.collection("newsletter").insertOne({
     email,
   });
 
