@@ -3,7 +3,8 @@ export interface EventItem {
   comments: CommentItem[];
 }
 
-export interface CommentItem {
+export type CommentItem = {
+  _id?: string;
   id?: string;
   email: string;
   name: string;
