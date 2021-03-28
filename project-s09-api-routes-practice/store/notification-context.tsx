@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-type NotificationData = {
+export type NotificationData = {
   title: string;
   message: string;
   status: string;

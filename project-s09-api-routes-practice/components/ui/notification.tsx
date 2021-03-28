@@ -1,17 +1,13 @@
 import React, { useContext } from "react";
 
 import classes from "./notification.module.css";
-import NotificationContext from "../../store/notification-context";
+import NotificationContext, {
+  NotificationData,
+  NotificationIface,
+} from "../../store/notification-context";
 
-type Props = {
-  title: string;
-  message: string;
-  status: string;
-}
-const Notification: React.FC<Props> = (props) => {
-  const notificationCtx = useContext<{
-    hideNotification: React.MouseEventHandler<HTMLDivElement>;
-  }>(NotificationContext);
+const Notification: React.FC<NotificationData> = (props) => {
+  const notificationCtx = useContext<NotificationIface>(NotificationContext);
 
   const { title, message, status } = props;
 
@@ -37,6 +33,6 @@ const Notification: React.FC<Props> = (props) => {
       <p>{message}</p>
     </div>
   );
-}
+};
 
 export default Notification;
