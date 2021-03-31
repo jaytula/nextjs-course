@@ -26,6 +26,7 @@ const PostItem: React.FC<PostItemProps> = ({
               alt={title}
               width={300}
               height={200}
+              layout='responsive'
             />
           </div>
           <div>
