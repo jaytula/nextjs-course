@@ -4,11 +4,6 @@ import matter from "gray-matter";
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
-type Data = {
-  date: string;
-  [key: string]: string;
-};
-
 function getPostData(fileName: string) {
   const filePath = path.join(postsDirectory, fileName);
   const fileContent = fs.readFileSync(filePath, "utf-8");
