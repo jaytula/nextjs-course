@@ -5,7 +5,11 @@ import { PostModel } from "../models";
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
-function getPostData(fileName: string) {
+export const getPostsFiles = () => {
+  const postFiles = fs.readdirSync(postsDirectory);
+  return postFiles;
+}
+export function getPostData(fileName: string) {
   const filePath = path.join(postsDirectory, fileName);
   const fileContent = fs.readFileSync(filePath, "utf-8");
 
@@ -26,7 +30,7 @@ function getPostData(fileName: string) {
 }
 
 export const getAllPosts = () => {
-  const postFiles = fs.readdirSync(postsDirectory);
+  const postFiles = getPostsFiles();
 
   const allPosts = postFiles.map(postFile => {
     return getPostData(postFile);

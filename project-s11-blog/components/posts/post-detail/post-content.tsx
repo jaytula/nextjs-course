@@ -1,6 +1,7 @@
 import ReactMarkdown from 'react-markdown';
 import PostHeader from "./post-header";
 import classes from './post-content.module.css';
+import { PostModel } from '../../../models';
 
 const DUMMY_POST = {
   slug: "getting-started-with-nextjs",
@@ -10,8 +11,8 @@ const DUMMY_POST = {
   content: "# This is a first post ",
 };
 
-const PostContent: React.FC = () => {
-  const { title, slug, image, content } = DUMMY_POST;
+const PostContent: React.FC<{post: PostModel}> = ({post}) => {
+  const { title, image, content, slug } = post;
 
   const imagePath = `/images/posts/${slug}/${image}`;
   return (
