@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { PostModel } from "../models";
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
@@ -11,9 +12,13 @@ function getPostData(fileName: string) {
   const { data, content } = matter(fileContent);
 
   const postSlug = fileName.replace(/\.md$/, "");
-  const postData = {
+  const postData: PostModel = {
     slug: postSlug,
-    data,
+    title: data.title,
+    date: data.date,
+    image: data.image,
+    excerpt: data.excerpt,
+    isFeatured: data.isFeatured,
     content,
   };
 
@@ -28,7 +33,7 @@ export const getAllPosts = () => {
   });
 
   const sortedPosts = allPosts.sort((postA, postB) =>
-    postA.data.date > postB.data.date ? -1 : 1
+    postA.date > postB.date ? -1 : 1
   );
 
   return sortedPosts;
@@ -36,5 +41,5 @@ export const getAllPosts = () => {
 
 export const getFeaturedPosts = () => {
   const allPosts = getAllPosts();
-  return allPosts.filter(post => post.data.isFeatured);
+  return allPosts.filter(post => post.isFeatured);
 }
