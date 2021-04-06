@@ -4,13 +4,8 @@ import classes from "./post-content.module.css";
 import { PostModel } from "../../../models";
 import Image from "next/image";
 
-const DUMMY_POST = {
-  slug: "getting-started-with-nextjs",
-  title: "Getting Started with NextJS",
-  image: "getting-started-nextjs.png",
-  date: "2022-02-10",
-  content: "# This is a first post ",
-};
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 const PostContent: React.FC<{ post: PostModel }> = ({ post }) => {
   const { title, image, content, slug } = post;
@@ -44,7 +39,16 @@ const PostContent: React.FC<{ post: PostModel }> = ({ post }) => {
           </div>
         );
       }
-      return <p>{paragraph.children}</p>
+      return <p>{paragraph.children}</p>;
+    },
+    code: ({ language, value }) => {
+      return (
+        <SyntaxHighlighter
+          style={atomDark}
+          language={language}
+          children={value}
+        />
+      );
     },
   };
   return (
