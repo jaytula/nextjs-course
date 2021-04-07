@@ -1,3 +1,7 @@
-const ContactPage: React.FC = () => {}
+import ContactForm from "../components/contact/contact-form";
 
-export default ContactPage
+const ContactPage: React.FC = () => {
+  return <ContactForm />;
+};
+
+export default ContactPage;
