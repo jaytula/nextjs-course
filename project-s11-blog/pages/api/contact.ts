@@ -1,5 +1,11 @@
 import { NextApiHandler } from "next";
 
+type ResponseBody = {
+  email: string;
+  name: string;
+  message: string;
+}
+
 const handler: NextApiHandler = (req, res) => {
   if (req.method !== "POST") {
     res.status(405).json({
@@ -8,7 +14,7 @@ const handler: NextApiHandler = (req, res) => {
     return;
   }
 
-  const { email, name, message } = req.body;
+  const { email, name, message } = req.body as ResponseBody;
 
   if (
     !email ||
@@ -16,7 +22,7 @@ const handler: NextApiHandler = (req, res) => {
     !name ||
     name.trim() === "" ||
     !message ||
-    message.trim === ""
+    message.trim() === ""
   ) {
     res.status(422).json({
       message: "Invalid input",
