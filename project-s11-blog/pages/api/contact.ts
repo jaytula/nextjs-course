@@ -1,12 +1,13 @@
 import { NextApiHandler } from "next";
+import { MongoClient } from "mongodb";
 
 type ResponseBody = {
   email: string;
   name: string;
   message: string;
-}
+};
 
-const handler: NextApiHandler = (req, res) => {
+const handler: NextApiHandler = async (req, res) => {
   if (req.method !== "POST") {
     res.status(405).json({
       message: "Method not allowed",
@@ -30,13 +31,43 @@ const handler: NextApiHandler = (req, res) => {
     return;
   }
 
-  const newMessage = {
+  const newMessage: {
+    email: string;
+    name: string;
+    message: string;
+    id?: any;
+  } = {
     email,
     name,
     message,
   };
 
-  console.log(newMessage);
+  let client: MongoClient;
+
+  try {
+    client = await MongoClient.connect(process.env.MONGO_URI as string, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message || "Something went wrong" });
+    return;
+  }
+
+  const db = client.db();
+
+  try {
+    const result = await db.collection("messages").insertOne(newMessage);
+    newMessage.id = result.insertedId;
+  } catch (error) {
+    client.close();
+    res
+      .status(500)
+      .json({ message: error.message || "Storing message failed!" });
+    return;
+  }
+
+  client.close();
 
   res
     .status(201)
