@@ -6,6 +6,7 @@ import Image from "next/image";
 
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import React from "react";
 
 const PostContent: React.FC<{ post: PostModel }> = ({ post }) => {
   const { title, image, content, slug } = post;
