@@ -28,3 +28,9 @@
 2. Use environment variables for variable data (e.g. database credentials, API keys ...)
 3. Do a test build and test the production-ready app locally or on some test server
 4. Deploy!
+
+## Lesson 204. Checking and Optimizing Our Code
+
+- Use `Image` component from `next/image` 
+- Use `Head` from `next/head`
+- Lazy-loading already built-in with Next
