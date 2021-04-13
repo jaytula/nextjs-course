@@ -34,3 +34,16 @@
 - Use `Image` component from `next/image` 
 - Use `Head` from `next/head`
 - Lazy-loading already built-in with Next
+
+## Lesson 205. The NextJS Config & Working With Environment Variables
+
+- `next.config.js` special file at root
+  - `module.exports = {}`
+  - Documentation: https://nextjs.org/docs/api-reference/next.config.js/introduction
+  - Configuration options include:
+    - Environment Variables
+    - Base Path
+    - Rewrites
+    - Redirects
+    - Custom Headers
+    - And much more...

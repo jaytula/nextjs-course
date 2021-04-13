@@ -44,8 +44,10 @@ const handler: NextApiHandler = async (req, res) => {
 
   let client: MongoClient;
 
+  const connectionString = `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@${process.env.mongodb_clustername}.${process.env.mongodb_host}/${process.env.mongodb_database}`;
+
   try {
-    client = await MongoClient.connect(process.env.MONGO_URI as string, {
+    client = await MongoClient.connect(connectionString as string, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
     });
