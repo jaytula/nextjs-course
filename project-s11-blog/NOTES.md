@@ -52,3 +52,19 @@
 
 - `npm run build`
 - Big size items in red
+
+## Lesson 207: A Full Deployment Example (To Vercel)
+
+Steps to deploy:
+
+1. `npm run build`
+2. Move entire project folder to a server with NodeJS
+3. `npm install` to install dependencies
+4. `npm run build` if `.next` folder not already created
+5. `npm start` to start server
+
+### Vercel
+
+Developed NextJS.
+
+- Sign in through GitHub, GitLab or Bitbucket
