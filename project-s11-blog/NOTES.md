@@ -47,3 +47,8 @@
     - Redirects
     - Custom Headers
     - And much more...
+
+## Lesson 206: Running a Test Build & Reducing Code Size
+
+- `npm run build`
+- Big size items in red
